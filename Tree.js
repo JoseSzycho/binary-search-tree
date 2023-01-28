@@ -57,6 +57,14 @@ class Tree{
         if(value > node.data) this.insert(node.right, value);
         if(value < node.data) this.insert(node.left, value);
     }
+
+    find(node, value){
+        console.log(node.data, value)
+        if(node.data == value) return node;
+        if(value > node.data && node.right != null) return this.find(node.right , value);
+        if(value < node.data && node.left != null) return this.find(node.left, value);
+        return "No match";
+    }
 }
 
 export default Tree;

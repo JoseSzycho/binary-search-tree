@@ -6,7 +6,6 @@ class Tree{
         this.root;
     }
     
-
     buildTree(array){
 
         if(array.length == 0) return null;
@@ -40,6 +39,24 @@ class Tree{
           this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
         }
       }
+
+    insert(node, value){
+        if(node.data == value) return;
+        if(value > node.data && node.right == null){
+            const newNode = new Node();
+            newNode.data = value;
+            node.right = newNode;
+            return;
+        }
+        if(value < node.data && node.left == null){
+            const newNode = new Node();
+            newNode.data = value;
+            node.left = newNode;
+            return;
+        }
+        if(value > node.data) this.insert(node.right, value);
+        if(value < node.data) this.insert(node.left, value);
+    }
 }
 
 export default Tree;

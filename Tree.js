@@ -100,6 +100,43 @@ class Tree{
         array.push(node.data);
         return array;
     }
+
+    height(node){
+        if(node == null) return 0;
+        let left = this.height(node.left);
+        let right = this.height(node.right);
+        return Math.max(left, right) + 1;
+    }
+
+    depth(node, nodeRoot){
+        if(node == nodeRoot) return 0;
+        if(node.data > nodeRoot.data && nodeRoot.right != null) return 1 + this.depth(node, nodeRoot.right);
+        if(node.data < nodeRoot.data && nodeRoot.left != null) return 1 + this.depth(node, nodeRoot.left);
+        return "No node in binary tree.";
+    }
+
+    isBalanced(node){
+        if(node == null) return;
+
+        let leftHeight = this.height(node.left);
+        let rightHeight = this.height(node.right);
+
+        if(Math.abs(leftHeight - rightHeight) <= 1){
+            
+            this.isBalanced(node.left);
+            this.isBalanced(node.right);
+
+            return "Tree is balanced.";
+        }
+
+        return "Tree is not balanced.";
+    }
+
+    reBalance(node){
+        let arrayTree = this.levelOrder(node);
+        this.prepareArray(arrayTree);
+        this.root = this.buildTree(this.preparedArray);
+    }
 }
 
 export default Tree;

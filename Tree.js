@@ -59,11 +59,46 @@ class Tree{
     }
 
     find(node, value){
-        console.log(node.data, value)
         if(node.data == value) return node;
         if(value > node.data && node.right != null) return this.find(node.right , value);
         if(value < node.data && node.left != null) return this.find(node.left, value);
         return "No match";
+    }
+
+    levelOrder(node){
+        let queue = [];
+        let array = []
+        queue.push(node)
+        while(queue.length != 0){
+            let exitNode = queue.shift();
+            array.push(exitNode.data);
+            if(exitNode.left != null) queue.push(exitNode.left);
+            if(exitNode.right != null) queue.push(exitNode.right);
+        }
+        return array;
+    }
+    preOrder(node, array = []){
+        if(node == null) return;
+        array.push(node.data);
+        this.preOrder(node.left, array);
+        this.preOrder(node.right, array);
+        return array;
+    }
+
+    inOrder(node, array = []){
+        if(node == null) return;
+        this.inOrder(node.left, array);
+        array.push(node.data);
+        this.inOrder(node.right, array);
+        return array;
+    }
+
+    postOrder(node, array = []){
+        if(node == null) return;
+        this.postOrder(node.left,array);
+        this.postOrder(node.right, array);
+        array.push(node.data);
+        return array;
     }
 }
 
